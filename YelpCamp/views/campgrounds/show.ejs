@@ -24,6 +24,8 @@
                     Submitted by: <%= campground.author.username%>
                 </li>
             </ul>
+
+            <% if (currentUser && campground.author.equals(currentUser)) { %> 
             <div class="card-body">
                 <a
                     class="card-link btn btn-primary"
@@ -38,6 +40,8 @@
                     <button class="btn btn-danger">Delete</button>
                 </form>
             </div>
+            <% } %> 
+            
             <div class="card-footer text-muted">
                 <!-- <a class="btn btn-primary mt-3" href="/campgrounds"
                     >All campgrounds</a -->
