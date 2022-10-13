@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms demo</title>
+</head>
+<body>
+    <h1> &#127796 Jungle!</h1>
+    
+    <form action="about.html">
+        <div>
+            <label for="username">Enter your Username:</label><br>
+            <input type="text" placeholder="Username" id="username"  name= "username" required><br>
+        </div>
+        <br>
+
+        <div>
+            <label for="pass">Enter your password:</label><br>
+            <input type="password" placeholder="Your password" name="password" id="pass" minlength="4" maxlength="8" required><br>
+            <label for="pass">Password must be 4-8 characters </label> <br>   
+        </div>
+
+        <br> 
+            <label for="sub">Do you want to subscribe?</label>
+            <input type="checkbox" name="milk" name="subscribe" id="sub"><br>
+        <br>
+        <button name="sign in" id="signIn"> Sign in!</button>
+
+    </form>  
+    <hr>
+    <br>
+    <form action="https://www.google.com/search?q=dog">
+        <label for="search">What are you looking for?</label><br>
+        <input type="text" placeholder="search" id="search" name="q">
+        <button>Google search</button>
+    </form>
+    <hr>
+    <br>
+    <h2>More inputs:</h2>
+    <label for="color"></label>What colors do you like?:<br>
+    <form action="">
+        <input type="checkbox" name="Blue" id="Blue">
+        <label for="yes">Blue</label><br>
+        <input type="checkbox" name="Red" id="Red">
+        <label for="no">Red</label>
+    </form>
+    <form action="about.html">
+        <p>Do you agree?</p>
+        <input type="radio" name="agree" id="yes1" value="yes1">
+        <label for="yes1">Yes</label><br>
+        <input type="radio" name="agree" id="no1" value="no1" >
+        <label for="no1">No</label><br>
+        <input type="radio" name="agree" id="notSure" value="notSure">
+        <label for="notSure">Not sure yet</label><br>
+        <button>Submit</button>
+        <hr>
+        
+        
+        <p>
+            <label for="country">Which country do you like the most?</label>
+            <select name="counrty" id="country">
+                <option value="Is">--Please choose an option--</option>
+                <option value="Is">Israel</option>
+                <option value="Rus">Russia</option>
+                <option value="Aus">Australia</option>
+
+            </select>
+            <button>Submit</button>
+        </p>
+        <hr>
+        <p>
+            <h3>Volume settings:</h3>
+            <label for="volium">Volume:</label><br>
+        
+            <input type="range" id="Volume" name="Volume" min="0" max="11">
+        </p>
+
+        <p>
+        <label for="story">Tell us your story:</label><br>
+        <textarea id="story" name="story" rows="10" cols="50" placeholder="It was a dark and stormy night...">
+        </textarea>
+    </p>
+
+    </form>
+    
+</body>
+</html>

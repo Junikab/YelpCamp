@@ -1,0 +1,88 @@
+<% layout('layouts/boilerplate') -%>
+<div class="row">
+    <h1 class="text-center">Add new campground</h1>
+    <div class="col-6 offset-3">
+        <form
+            class="validated-form"
+            action="/campgrounds"
+            method="POST"
+            novalidate
+        >
+            <div class="mb-3">
+                <label class="form-label" for="name">Campground name</label>
+                <input
+                    class="form-control"
+                    type="text"
+                    id="name"
+                    name="campground[name]"
+                    required
+                />
+                <div class="invalid-feedback">
+                    Please write a campground name.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="location">Location</label>
+                <input
+                    class="form-control"
+                    type="text"
+                    id="location"
+                    name="campground[location]"
+                    required
+                />
+                <div class="invalid-feedback">Please tell us where is it.</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="img">Image URL</label>
+                <input
+                    class="form-control"
+                    type="text"
+                    id="image"
+                    name="campground[image]"
+                    required
+                />
+                <div class="invalid-feedback">Please add a photo.</div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="price">Campground price</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="price-lable">$</span>
+                    <input
+                        type="text"
+                        id="price"
+                        class="form-control"
+                        aria-label="Amount (to the nearest dollar)"
+                        placeholder="0.00"
+                        aria-describedby="price-lable"
+                        name="campground[price]"
+                        required
+                    />
+                    <div class="invalid-feedback">
+                        Please tell us how much it cost.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <textarea
+                    class="form-control"
+                    type="text"
+                    id="description"
+                    name="campground[description]"
+                    required
+                ></textarea>
+                <div class="invalid-feedback">
+                    Please tell us something about this place.
+                </div>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary">Add Campground</button>
+            </div>
+        </form>
+        <a href="/campgrounds">All campgrounds</a>
+    </div>
+</div>
+
+
