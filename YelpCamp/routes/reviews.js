@@ -9,10 +9,6 @@ const Review = require("../models/review");
 const { reviewSchema } = require("../schemas.js");
 const { validateReview, isLoggedIn, isReviewAuthor } = require("../middleware");
 
-
-// Middleware validation *************************************
-
-
 router.post("/", validateReview, isLoggedIn, catchAsync(reviews.createReview));
 
 router.delete(
