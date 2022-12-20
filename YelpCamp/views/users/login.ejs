@@ -1,4 +1,5 @@
-<% layout('layouts/boilerplate') -%>
+<% layout('layouts/boilerplate')%>
+
 
 <div class="container d-flex justify-content-center align-items-center mt-5">
     <div class="row">
@@ -12,20 +13,16 @@
                         <div class="mb-3">
                             <label class="form-label" for="username">Username</label>
                             <input class="form-control" type="text" id="username" name="username" autofocus required>
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
+                            <div class="invalid-feedback">Username is required.</div>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" for="password">Password</label>
                             <input class="form-control" type="password" id="password" name="password" required>
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
+                            <div class="invalid-feedback">Password is required.</div>
                         </div>
                         <div class="d-grid gap-2">
-                            <button class="btn btn-success btn-block"type="button">Login</button>
+                            <button class="btn btn-success btn-block">Login</button>
                         </div>
                     </form>
                 </div>
