@@ -18,6 +18,7 @@ const User = require("./models/user")
 const userRoutes = require("./routes/users");
 const campgroundsRoutes = require("./routes/campgrounds");
 const reviewsRoutes = require("./routes/reviews");
+const mongoSanitize = require("express-mongo-sanitize");
 
 // Connecting to the mongoDB and checking errors
 
@@ -63,8 +64,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
+    console.log(req.query)
     res.locals.currentUser = req.user;
-    // consol.log(req.session);
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     next();
@@ -75,6 +76,7 @@ app.use("/campgrounds", campgroundsRoutes);
 app.use("/campgrounds/:id/reviews", reviewsRoutes);
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use(mongoSanitize());
 
 // **********************************************************
 
