@@ -14,24 +14,28 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const helmet = require("helmet");
-
 const userRoutes = require("./routes/users");
 const campgroundsRoutes = require("./routes/campgrounds");
 const reviewsRoutes = require("./routes/reviews");
 const mongoSanitize = require("express-mongo-sanitize");
-const dbURL = process.env.DB_URL
+
+const MongoStore = require("connect-mongo");
+
+const dbUrl = "mongodb://localhost:27017/yelp-camp";
+
+mongoose.connect(dbUrl, {
+    // useNewUrlParser: true,
+    // useCreateIndex: true,
+    // useUnifiedTopology: true,
+    // useFindAndModify: false
+});
 
 // Connecting to the mongoDB and checking errors
-// "mongodb://localhost:27017/yelp-camp";
-mongoose
-.connect(dbURL)
-    .then(() => {
-        console.log("Mongo connection open!");
-    })
-    .catch((err) => {
-        console.log("Connection Fail!");
-        console.log(err);
-    });
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", () => {
+    console.log("Database connected");
+});
 
 const app = express();
 
@@ -39,11 +43,36 @@ app.engine("ejs", ejsMate);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(mongoSanitize({replaceWith: "_"}));
+
 // ******************************************
+const secret = process.env.SECRET || "keyboard_cat";
+
+// const store = new MongoDBStore({
+//     url: dbUrl,
+//     secret,
+//     touchAfter: 24 * 60 * 60,
+// });
+
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: "keyboard_cat",
+    },
+});
+store.on("error", function(e){
+    console.log("SESSION STORE ERROR",e)
+})
+
 
 const sessionConfig = {
+    store,
     name: "YelpCamp",
-    secret: "keyboard cat",
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -103,8 +132,7 @@ app.use(
     })
 );
 
-app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride("_method"));
+
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -124,9 +152,6 @@ app.use("/", userRoutes);
 app.use("/campgrounds", campgroundsRoutes);
 app.use("/campgrounds/:id/reviews", reviewsRoutes);
 
-app.use(express.static(path.join(__dirname, "public")));
-app.use(mongoSanitize());
-
 // **********************************************************
 
 app.get("/", (req, res) => {
@@ -143,6 +168,7 @@ app.use((err, req, res, next) => {
     res.status(status).render("error", { err });
 });
 
-app.listen("3000", () => {
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
     console.log("Serving on port 3000!");
 });
